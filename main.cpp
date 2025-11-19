@@ -1,5 +1,15 @@
+#include <climits>
+#include <cstdint>
 #include <iostream>
+#include <limits>
 
-int main(int, char**){
-    std::cout << "Hello, from cpp-dev!\n";
+#include "homework01.hpp"
+
+#define MAGIC(a, b, op) \
+    (std::cout << "(" #a " " #op " " #b ") = " << (a op b) << std::endl)
+
+int main(int, char **)
+{
+    test();
+    return 0;
 }
