@@ -11,12 +11,12 @@ class Card
 {
 
 public:
-    struct Suits
+    enum Suits
     {
-        string Spades = "Spades";
-        string Hearts = "Hearts";
-        string Clubs = "Clubs";
-        string Diamonds = "Diamonds";
+        SPADES,
+        HEARTS,
+        CLUBS,
+        DIAMONDS
     };
 
     enum Ranks : unsigned short int
@@ -30,16 +30,80 @@ public:
         EIGHT,
         NINE,
         TEN,
-        JACK = 10,
-        QUEEN = 10,
-        KING = 10,
+        JACK,
+        QUEEN,
+        KING,
         ACE,
     };
 
 protected:
     Ranks rank;
     Suits suit;
+
+public:
+    // class constructor
+    Card(Suits s, Ranks r) : suit(s), rank(r)
+    {
+    }
+
+    Ranks getRank() const
+    {
+        return rank;
+    }
+    int getValue() const
+    {
+        switch (rank)
+        {
+        case Ranks::JACK:
+        case Ranks::QUEEN:
+        case Ranks::KING:
+            return 10;
+        case Ranks::ACE:
+            return 11;
+        default:
+            return rank;
+        }
+    }
+    void printCard() const
+    // This function will be used to identify Card
+    {
+        switch (rank)
+        {
+        case Ranks::JACK:
+            cout << "Jack ";
+            break;
+        case Ranks::QUEEN:
+            cout << "Queen ";
+            break;
+        case Ranks::KING:
+            cout << "King ";
+            break;
+        case Ranks::ACE:
+            cout << "Ace ";
+            break;
+        default:
+            cout << rank << " ";
+            break;
+        }
+        cout << "of ";
+        switch (suit)
+        {
+        case Suits::SPADES:
+            cout << "Spades";
+            break;
+        case Suits::CLUBS:
+            cout << "Clubs";
+            break;
+        case Suits::HEARTS:
+            cout << "Hearts";
+            break;
+        case Suits::DIAMONDS:
+            cout << "Diamonds";
+            break;
+        }
+    }
 };
+
 int main()
 {
 
