@@ -103,6 +103,36 @@ public:
         }
     }
 };
+class Deck
+{
+};
+class Hand
+{
+};
+class Functionalities
+{
+    // This class will be used for polimorphism for functionalities such as Play, Hit, Stand, DoubleDown etc
+public:
+    virtual ~Functionalities()
+    {
+        // deconstructor for virtual class
+    }
+    virtual void exectute(/*TBD AFTER DECK AND HAND CLASSES*/);
+};
+class Play : public Functionalities
+{
+    // TBD
+};
+class Hit : public Functionalities
+{
+    // TBD
+};
+class Stand : public Functionalities
+{
+};
+class DoubleDown : public Functionalities
+{
+};
 
 int main()
 {
