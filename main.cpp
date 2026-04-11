@@ -5,8 +5,6 @@
 #include <algorithm>
 using namespace std;
 
-// TO DO: Hand -> Dealer, Player; addCard(); getTotalValue(); display(); //We will use this functions to determine players and dealers hand
-
 // TO DO: Functionalities classes(Polimorfism, implementarea claselor virtuale): Hit, Stand, Double Down
 // TO DO: Interfata utilizator: Comand Line Interface, gestionarea situatiilor de bust , Scoring,  optiunea de exit sau de a continua jocul dupa incheiere
 
