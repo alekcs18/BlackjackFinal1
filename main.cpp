@@ -212,6 +212,7 @@ class Play : public Functionalities
         dh.addCard(d.drawCard());
         p.addCard(d.drawCard());
         dh.addCard(d.drawCard());
+        cout << "Game starts now! \n";
         cout << "Dealers Cards: \n";
         dh.displayFirstCard();
         cout << "Your Cards: \n";
