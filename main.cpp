@@ -64,7 +64,7 @@ public:
         case Ranks::ACE:
             return 11;
         default:
-            return rank;
+            return static_cast<int>(rank);
         }
     }
     void printCard() const
@@ -85,7 +85,7 @@ public:
             cout << "Ace ";
             break;
         default:
-            cout << rank << " ";
+            cout << static_cast<int>(rank) << " ";
             break;
         }
         cout << "of ";
@@ -137,7 +137,7 @@ public:
         {
             for (int r = 2; r <= 14; ++r)
             {
-                cards.push_back(Card(Card::Suits(s), Card::Ranks(r)));
+                cards.push_back(Card(static_cast<Card::Suits>(s), static_cast<Card::Ranks>(r)));
             }
         }
     }
@@ -152,20 +152,73 @@ public:
     {
         cards.push_back(c);
     }
+    int getTotalValue() const
+    {
+        int total = 0;
+        int aceCount = 0;
+        for (const auto &card : cards)
+        {
+            total += card.getValue();               // we also use getValue() function declared in Card class to add the rank of named card
+            if (card.getRank() == Card::Ranks::ACE) // check for ace card
+            {
+                aceCount++;
+            }
+        }
+        while (total > 21 && aceCount) // here we actually implement ace logic: if total > 21 and ace card present we decrement 10 from the total and ace value turns into 1
+        {
+            total -= 10;
+            aceCount--;
+        }
+        return total;
+    }
+    void display() // this is used to display the hand!
+    {
+        for (const auto &card : cards)
+        {
+            card.printCard();
+            cout << ", ";
+        }
+        cout << "(Total: " << getTotalValue() << ")\n";
+    }
+
+    void displayFirstCard() // in bj the player can only see dealers first card untill the end so we need to implement a separate logic
+    {
+        if (!cards.empty())
+        {
+            cards[0].printCard();
+            cout << ", " << "Hidden Card\n";
+        }
+    }
+    int getCardCount() const // This will be used later to restrict player in some functionality cases
+    {
+        return static_cast<int>(cards.size());
+    }
 };
 class Functionalities
 {
-    // This class will be used for polimorphism for functionalities such as Play, Hit, Stand, DoubleDown etc
+    // This class will be used for polimorphism and will be considered Parent for functionalities such as Play, Hit, Stand, DoubleDown etc.
+
 public:
     virtual ~Functionalities()
     {
         // deconstructor for virtual class
     }
-    virtual void exectute(/*TBD AFTER DECK AND HAND CLASSES*/);
+    virtual void execute(Deck &d, Hand &p, Hand &dh) = 0; // d--> dealer p--> player hd -->  dealer hand
 };
 class Play : public Functionalities
 {
-    // TBD
+    void execute(Deck &d, Hand &p, Hand &dh) override
+    {
+        d.shuffle();
+        p.addCard(d.drawCard());
+        dh.addCard(d.drawCard());
+        p.addCard(d.drawCard());
+        dh.addCard(d.drawCard());
+        cout << "Dealers Cards: \n";
+        dh.displayFirstCard();
+        cout << "Your Cards: \n";
+        p.display();
+    }
 };
 class Hit : public Functionalities
 {
@@ -180,6 +233,9 @@ class DoubleDown : public Functionalities
 
 int main()
 {
-
+    cout << "Welcome to Blackjack!!\n";
+    Deck myDeck;                 // we construct the deck
+    Hand dealerHand, playerHand; // we construct dealer and player Hand
+    Play starter;
     return 0;
 };
