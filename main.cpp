@@ -1,12 +1,15 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <random>
+#include <algorithm>
 using namespace std;
-// TO DO: Card -> Suits, Ranks;
-// TO DO: Hand -> Dealer, Player;
-// TO DO: Deck -> void Shuffle(), void dealCards(), void addCard(), void countCards() etc..
+
+// TO DO: Hand -> Dealer, Player; addCard(); getTotalValue(); display(); //We will use this functions to determine players and dealers hand
+
 // TO DO: Functionalities classes(Polimorfism, implementarea claselor virtuale): Hit, Stand, Double Down
 // TO DO: Interfata utilizator: Comand Line Interface, gestionarea situatiilor de bust , Scoring,  optiunea de exit sau de a continua jocul dupa incheiere
+
 class Card
 {
 
@@ -105,9 +108,50 @@ public:
 };
 class Deck
 {
+private:
+    vector<Card> cards;
+
+public:
+    void shuffle()
+    {
+        std::random_device rd;                        // declaration of rng
+        std::mt19937 mt(rd());                        // engine used for card shuffling
+        std::shuffle(cards.begin(), cards.end(), mt); // actual shuffling
+    }
+
+    Card drawCard()
+    {
+        if (cards.empty())
+        {
+            throw runtime_error("Deck is empty!");
+        }
+
+        Card dealtCard = cards.back(); // This gives out the last card from the deck Ex: vector<int>someint =  {1, 2, 3 ,4}; cout<<someint.back() --> 4
+        cards.pop_back();              // this actually removes the card
+        return dealtCard;              // returning the dealt card! :D
+    }
+
+    Deck() // then we construct the deck using push
+    {
+        for (int s = 0; s < 4; ++s)
+        {
+            for (int r = 2; r <= 14; ++r)
+            {
+                cards.push_back(Card(Card::Suits(s), Card::Ranks(r)));
+            }
+        }
+    }
 };
 class Hand
 {
+private:
+    vector<Card> cards;
+
+public:
+    void addCard(Card c)
+    {
+        cards.push_back(c);
+    }
 };
 class Functionalities
 {
@@ -138,4 +182,4 @@ int main()
 {
 
     return 0;
-}
+};
