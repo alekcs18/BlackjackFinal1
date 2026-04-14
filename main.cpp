@@ -207,11 +207,13 @@ class Play : public Functionalities
 {
     void execute(Deck &d, Hand &p, Hand &dh) override
     {
-        d.shuffle();
+        d.shuffle(); // shuffling deck
+        // the following will deal the initial cards
         p.addCard(d.drawCard());
         dh.addCard(d.drawCard());
         p.addCard(d.drawCard());
         dh.addCard(d.drawCard());
+        //
         cout << "Game starts now! \n";
         cout << "Dealers Cards: \n";
         dh.displayFirstCard();
@@ -221,20 +223,94 @@ class Play : public Functionalities
 };
 class Hit : public Functionalities
 {
-    // TBD
+    void execute(Deck &d, Hand &p, Hand &dh) override
+    {
+        p.addCard(d.drawCard()); // this deals the player another card
+        cout << "Your Cards: \n";
+        p.display();
+    };
 };
-class Stand : public Functionalities
-{
-};
+
 class DoubleDown : public Functionalities
 {
+    void execute(Deck &d, Hand &p, Hand &dh) override
+    {
+        // This option will only be available to the player in the first round
+        cout << "Double down called..\n";
+        cout << "Your last card: ";
+        p.addCard(d.drawCard());
+        p.display();
+    };
+};
+
+void dealerAction(Hand &playerHand, Hand &dealerHand, Deck &myDeck, int &playerScore, int &dealerScore)
+{
+    // With this function when the player chooses to stand the dealer will begin to make his move
+    cout << "Dealers turn..\n";
+    dealerHand.display();                   // This displays dealers hand including the hidden card
+    while (dealerHand.getTotalValue() < 17) // In BJ dealer must stand on 17 or above
+    {
+        cout << "Dealer hits..\n";
+        dealerHand.addCard(myDeck.drawCard());
+        dealerHand.display();
+        // here we use int pScore/dScore to compare the two hands and deal with the following scenarios
+        int pScore = playerHand.getTotalValue();
+        int dScore = dealerHand.getTotalValue();
+        if (dScore > 21)
+        {
+            cout << "Dealer gone bust..\n";
+            cout << "You win!\n";
+            playerScore++;
+        }
+        if (pScore > dScore)
+        {
+            cout << "You win!\n";
+            playerScore++;
+        }
+        else if (dScore > pScore)
+        {
+            cout << "Dealer wins!\n";
+            dealerScore++;
+        }
+        else if (dScore = pScore)
+        {
+            cout << "It's a Tie!\n";
+            // nothing is added to the scoring system
+        }
+    }
+}
+class Stand : public Functionalities
+{
+    // This will act as a wrapper for dealerAction function
+private:
+    int &pScoreRef;
+    int &dScoreRef;
+
+public:
+    Stand(int &pS, int &dS) : pScoreRef(pS), dScoreRef(dS) {} // we need a constructor to use this in main
+    void execute(Deck &d, Hand &p, Hand &dh) override
+    {
+        cout << "You stand..\n";
+        dealerAction(p, dh, d, pScoreRef, dScoreRef); // This will run the dealerAction function declared earlier to handle the actual Stand functionality
+    }
 };
 
 int main()
 {
     cout << "Welcome to Blackjack!!\n";
-    Deck myDeck;                 // we construct the deck
-    Hand dealerHand, playerHand; // we construct dealer and player Hand
-    Play starter;
+    Deck myDeck;
+    int playerScore = 0;
+    int dealerScore = 0;
+    Functionalities *action = nullptr;
+    bool gamerunning = true;
+
+    while (gamerunning = true)
+    {
+        Hand playerHand, dealerHand;
+        cout << "Scoreboard..\n"
+             << "Player's score: " << playerScore << "\nDealer's score: " << dealerScore << endl;
+
+        Play starter;
+    }
     return 0;
 };
