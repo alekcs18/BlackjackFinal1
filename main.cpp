@@ -5,9 +5,6 @@
 #include <algorithm>
 using namespace std;
 
-// TO DO: Functionalities classes(Polimorfism, implementarea claselor virtuale): Hit, Stand, Double Down
-// TO DO: Interfata utilizator: Comand Line Interface, gestionarea situatiilor de bust , Scoring,  optiunea de exit sau de a continua jocul dupa incheiere
-
 class Card
 {
 
@@ -139,6 +136,10 @@ public:
             }
         }
     }
+    int cardsRemaining() const
+    {
+        return cards.size();
+    }
 };
 class Hand
 {
@@ -214,10 +215,10 @@ class Play : public Functionalities
         p.addCard(d.drawCard());
         dh.addCard(d.drawCard());
         //
-        cout << "Game starts now! \n";
-        cout << "Dealers Cards: \n";
+        cout << "\nGame starts now! \n";
+        cout << "\nDealers Cards: \n";
         dh.displayFirstCard();
-        cout << "Your Cards: \n";
+        cout << "\nYour Cards: \n";
         p.display();
     }
 };
@@ -253,32 +254,32 @@ void dealerAction(Hand &playerHand, Hand &dealerHand, Deck &myDeck, int &playerS
         cout << "Dealer hits..\n";
         dealerHand.addCard(myDeck.drawCard());
         dealerHand.display();
-        // here we use int pScore/dScore to compare the two hands and deal with the following scenarios
-        int pScore = playerHand.getTotalValue();
-        int dScore = dealerHand.getTotalValue();
-        if (dScore > 21)
-        {
-            cout << "Dealer gone bust..\n";
-            cout << "You win!\n";
-            playerScore++;
-        }
-        if (pScore > dScore)
-        {
-            cout << "You win!\n";
-            playerScore++;
-        }
-        else if (dScore > pScore)
-        {
-            cout << "Dealer wins!\n";
-            dealerScore++;
-        }
-        else if (dScore = pScore)
-        {
-            cout << "It's a Tie!\n";
-            // nothing is added to the scoring system
-        }
+    } // here we use int pScore/dScore to compare the two hands and deal with the following scenarios
+    int pScore = playerHand.getTotalValue();
+    int dScore = dealerHand.getTotalValue();
+    if (dScore > 21)
+    {
+        cout << "Dealer gone bust..\n";
+        cout << "You win!\n";
+        playerScore++;
+    }
+    else if (pScore > dScore)
+    {
+        cout << "You win!\n";
+        playerScore++;
+    }
+    else if (dScore > pScore)
+    {
+        cout << "Dealer wins!\n";
+        dealerScore++;
+    }
+    else if (dScore == pScore)
+    {
+        cout << "It's a Tie!\n";
+        // nothing is added to the scoring system
     }
 }
+
 class Stand : public Functionalities
 {
     // This will act as a wrapper for dealerAction function
@@ -299,18 +300,120 @@ int main()
 {
     cout << "Welcome to Blackjack!!\n";
     Deck myDeck;
-    int playerScore = 0;
-    int dealerScore = 0;
-    Functionalities *action = nullptr;
-    bool gamerunning = true;
-
-    while (gamerunning = true)
+    int playerScore = 0;               // initial player score
+    int dealerScore = 0;               // initial dealer score
+    Functionalities *action = nullptr; // we'll use this as our action button
+    bool gameRunning = true;
+    while (gameRunning) // This is the actual game running;
     {
         Hand playerHand, dealerHand;
-        cout << "Scoreboard..\n"
+        cout << "\nScoreboard..\n"
              << "Player's score: " << playerScore << "\nDealer's score: " << dealerScore << endl;
+        int choice = 0; // this will be the player's choice
 
         Play starter;
+        action = &starter;
+        action->execute(myDeck, playerHand, dealerHand);
+        if (playerHand.getTotalValue() == 21) // if player's cards are a blackjack it will grant him/she an instant win
+        {
+            cout << "You instantly win!\n";
+            playerScore++;
+        }
+        else
+        {
+            while (true)
+            {
+
+                cout << "\n1. Hit\n2. Stand \n3. Double Down\n4. Exit Game\nChoice: ";
+                // We'll use 1,2,3,4 as buttons! 1-> Hit, 2-> Stand, 3-> Double Down, 4-> Exit Game
+                if (!(cin >> choice)) // This will check if players choice is valid
+                {
+                    cout << "!Error!\nYou can only choose from 1, 2, 3, 4\n";
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    continue;
+                }
+                if (choice == 1) // integration of Hit button in Command line + possible Bust or Win scenarios
+                {
+                    Hit hitCmd;
+                    action = &hitCmd;
+                    action->execute(myDeck, playerHand, dealerHand);
+                    if (playerHand.getTotalValue() > 21)
+                    {
+                        cout << "Bust, dealer wins!\n";
+                        dealerScore++;
+                        break;
+                    }
+                    else if (playerHand.getTotalValue() == 21) // possible blackjack scenario
+                    {
+                        cout << "Blackjack! You win!\n";
+                        playerScore++;
+                        break;
+                    }
+                }
+                if (choice == 2) // integration of Stand button in Command line. This will trigger dealerAction function used by our wrapper class
+                {
+                    Stand standAction(playerScore, dealerScore);
+                    action = &standAction;
+                    action->execute(myDeck, playerHand, dealerHand);
+                    break;
+                }
+                if (choice == 3) // integration of Double down button in Command line.
+                {
+                    if (playerHand.getCardCount() != 2) // Checks the condition to see if the player fulfills the condition
+                    {
+                        cout << "You can only double down in first round!\n";
+                        continue;
+                    }
+                    DoubleDown doubleCmd;
+                    action = &doubleCmd;
+                    action->execute(myDeck, playerHand, dealerHand);
+                    if (playerHand.getTotalValue() > 21) // Possible bust scenario
+                    {
+                        cout << "Bust, dealer wins!\n";
+                        dealerScore++;
+                        break;
+                    }
+                    else // After double down player stands in which case it triggers dealerAction here we use this instead of the wrapper used in Stand button
+                    {
+                        dealerAction(playerHand, dealerHand, myDeck, playerScore, dealerScore);
+                    }
+                    break;
+                }
+                if (choice == 4) // Integration button in case the player wants to quit
+                {
+                    cout << "\nThank you for playing Blackjack! See you again soon!\n";
+                    return 0; // exit code
+                }
+                else // This is a message displayed for the player in case of typoos
+                {
+                    std::cout << "Invalid choice. Pick 1, 2, 3 or 4\n";
+                }
+            }
+        }
+        char playAgain; // We'll use this for the rematch/continue playing feature
+        do              // after round ends the program will enter this loop in which it will ask the player:
+        {
+            cout << "Do you want to play again?(y/n)\n";
+            cin >> playAgain;
+            if (playAgain == 'n' || playAgain == 'N') // this is no which means the game will end and program will return 0
+            {
+                gameRunning = false;
+                break;
+            }
+            if (playAgain == 'y' || playAgain == 'Y') // this will cause another round to start
+            {
+                gameRunning = true;
+                break;
+            }
+            cout << "Invalid choice! please choose from (y/n)\n"; // If player's choice is invalid it will display this message
+        } while (true);
+        if (myDeck.cardsRemaining() < 15) // in case the deck is running out of cards the deck will reshuffle
+        {
+            cout << "Reshuffling deck..\n";
+            myDeck = Deck();
+        }
     }
+    cout << "Goodbye!\n"; // in case the player chooses to no longer play it will display this message
     return 0;
 };
