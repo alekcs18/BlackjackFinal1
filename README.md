@@ -13,7 +13,7 @@
  - **Ace Card logic**: Ace card value automatically adjusts if the hand total exceeds 21;
  - **Card Evaluation**: All named cards with the exception of Ace card have the value of 10;
 ### 2. Player Interface:
-- **Command line interface**:
+**Command line interface**:
    *User needs to interact with the terminal in order to play the game*:
 - **Functionalities:**
    -  **Hit**: Deals the player another card, adding up to the score (in which case it can be a win/bust scenario);
