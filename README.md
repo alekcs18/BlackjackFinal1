@@ -6,7 +6,6 @@
 - **Standard 52-Card Deck**: Full implementation of suits(Spades, Hearts, Clubs, Diamonds) and ranks (from 2-Ace);
 - **Automatic Reshuffling**: The deck automatically reshuffles using an rng in order to prevent "out of card errors";
 - **AI dealer**: 
-    -**Hidden Card**: Dealer only displays the second card after the player's hand is completed;
     -**House rules**: Dealer can only Hit after the player's hand is completed. Dealer only can hit when <17, otherwise they must stand;
 - **Scoring**:
  - **Scoreboard**: The game uses a scoreboard to keep track of the wins of player/dealer;
@@ -21,3 +20,7 @@
    -  **Double Down**: Only available to the player in first round, in which case player recieves one last card before being forced to stand;
    -  **Exit Game**: Gives the player the posibility to quit the game at any time;
    -  **Rematch**: Gives the player the posibility to choose if he/she wants to proceed with another round;
+- **Visual:**
+   -  **Hidden Card**: Dealer only displays the second card after the player's hand is completed, in order to maintain game integrity;
+   -  **Formated Strings**: Converts enums into readable card names(For instance: "Spades" instead of 0);
+   -  **Game State Announcment**: Tracks the game's events, outcomes and informs the player about win/bust scenarios;  
