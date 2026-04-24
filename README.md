@@ -14,7 +14,7 @@
  - **Card Evaluation**: All named cards with the exception of Ace card have the value of 10;
 ### 2. Player Interface:
 - **Command line interface**:
--   *User needs to interact with the terminal in order to play the game*:
+   *User needs to interact with the terminal in order to play the game*:
   -  **Hit**: Deals the player another card, adding up to the score (in which case it can be a win/bust scenario);
   -  **Stand**: Gives the player the option to stand, player's hand is completed and dealer logic begins to unfold;
   -  **Double Down**: Only available to the player in first round, in which case player recieves one last card before being forced to stand;
