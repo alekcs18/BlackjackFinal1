@@ -42,3 +42,17 @@
     - **Limits:** Handles cases in which the player types invalid answers preventing infinite loops;
     - **Error Handling:** Handles errors like: trying to draw from an empty deck;
 ### Relevant Screenshots for the code:
+![Ace Logic Logic](relevant-pictures/Acelogic.png)
+![Blackjackscenario](relevant-pictures/Blackjackscenario.png)
+![Deckreshuffle](relevant-pictures/Deckreshuffle.png)
+![DoubleDown](relevant-pictures/DoubleDown.png)
+![Doyouwanttoplayagain-no](relevant-pictures/Doyouwanttoplayagain-no.png)
+![Doyouwanttoplayagain-scoreboardupdate](relevant-pictures/Doyouwanttoplayagain-scoreboardupdate.png)
+![exitgame](relevant-pictures/exitgame.png)
+![Hit-Bust](relevant-pictures/Hit-Bust.png)
+![Hit](relevant-pictures/Hit.png)
+![InstantWin](relevant-pictures/InstantWin.png)
+![InvalidChoice](relevant-pictures/InvalidChoice.png)
+![Menu](relevant-pictures/Menu.png)
+![Stand](relevant-pictures/Stand.png)
+![WinScenario](relevant-pictures/Winscenario.png)
