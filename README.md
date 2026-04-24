@@ -1,1 +1,1 @@
-# it-school-cpp-course
+# IT-SCHOOL-FINAL-PROJECT Blackjack game
