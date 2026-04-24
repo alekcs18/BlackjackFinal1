@@ -1,1 +1,1 @@
-# IT-SCHOOL-FINAL-PROJECT Blackjack game
+# **BLACKJACK GAME**
