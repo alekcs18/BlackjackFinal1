@@ -31,7 +31,7 @@
    -  **Game State Announcment**: Tracks the game's events, outcomes and informs the player about the games transition:
       - **Dynamic Feedback System**: This includes game results and real-time scoreboard
 ### 3. Technical Implementation:
-- **Object Oriented Programing (OOP):** Game uses concepts like: Encapsulation, Inheritance, Polymorphism, etc, in order to make the code easier to maintain and extend core classes:
+- **Object Oriented Programming (OOP):** Game uses concepts like: Encapsulation, Inheritance, Polymorphism, etc, in order to make the code easier to maintain and extend core classes:
     - **Pure Virtual Classes:** Class Functionalities is defined as a pure virtual class in order to easily allow extensibilty of new game feature classes, prevents the developer from accidentaly creating a functionality object that does nothing, enables the path to polymorphism.
     - **Inheritance:** Classes like Hit, Stand, DoubleDown all inherit from base class Functionalities, but each have different logic-implementation;
     - **Polymorphism:** With polymorphism we can use the action pointer that acts as a universal controller, making main() look much cleaner and less entangled;
