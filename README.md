@@ -42,17 +42,31 @@
     - **Limits:** Handles cases in which the player types invalid answers preventing infinite loops;
     - **Error Handling:** Handles errors like: trying to draw from an empty deck;
 ### Relevant Screenshots for the code:
+- **Example of Ace card value turning from 11 to 1**
 ![Ace Logic Logic](relevant-pictures/Acelogic.png)
+- **Possible blackjack scenario:**
 ![Blackjackscenario](relevant-pictures/Blackjackscenario.png)
+- **The deck being reshuffled when it's low on cards**
 ![Deckreshuffle](relevant-pictures/Deckreshuffle.png)
+- **Double down feature**
 ![DoubleDown](relevant-pictures/DoubleDown.png)
+- **Rematch - scenario "no"**
 ![Doyouwanttoplayagain-no](relevant-pictures/Doyouwanttoplayagain-no.png)
+- **Rematch - scenario "yes" + scoreboard update**
 ![Doyouwanttoplayagain-scoreboardupdate](relevant-pictures/Doyouwanttoplayagain-scoreboardupdate.png)
+- **Exit game feature:**
 ![exitgame](relevant-pictures/exitgame.png)
+- **Bust from hit scenario:**
 ![Hit-Bust](relevant-pictures/Hit-Bust.png)
+- **Hit**
 ![Hit](relevant-pictures/Hit.png)
+- **Instant Win Scenario:**
 ![InstantWin](relevant-pictures/InstantWin.png)
+- **Invalid Choice handling:**
 ![InvalidChoice](relevant-pictures/InvalidChoice.png)
+- **Menu:**
 ![Menu](relevant-pictures/Menu.png)
+- **Stand feature:**
 ![Stand](relevant-pictures/Stand.png)
+- **Win scenario:**
 ![WinScenario](relevant-pictures/Winscenario.png)
