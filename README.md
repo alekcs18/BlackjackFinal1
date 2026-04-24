@@ -41,3 +41,4 @@
     - **Input/Output Stream:** Standard streams such as cin/cout are used for terminal interaction;
     - **Limits:** Handles cases in which the player types invalid answers preventing infinite loops;
     - **Error Handling:** Handles errors like: trying to draw from an empty deck;
+![Alt text](Ace logic.png)
