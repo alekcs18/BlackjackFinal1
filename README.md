@@ -42,4 +42,3 @@
     - **Limits:** Handles cases in which the player types invalid answers preventing infinite loops;
     - **Error Handling:** Handles errors like: trying to draw from an empty deck;
 ### Relevant Screenshots for the code:
-![Ace Logic Logic](relevant-pictures/Acelogic.png)
