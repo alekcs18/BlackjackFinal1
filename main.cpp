@@ -202,7 +202,7 @@ public:
     {
         // deconstructor for virtual class
     }
-    virtual void execute(Deck &d, Hand &p, Hand &dh) = 0; // d--> dealer p--> player hd -->  dealer hand
+    virtual void execute(Deck &d, Hand &p, Hand &dh) = 0; // d--> deck p--> player hd -->  dealer hand
 };
 class Play : public Functionalities
 {
